@@ -96,7 +96,6 @@ vector<pair <int, int> > getscore(vector<long> query, map<long,long> posmap)
                     sig.push_back(make_pair(cur,posmap[query[i]]));
                 }
                 
-                /*
                 map<long,vector<long> > :: iterator hop_2 = edges.find(neighs[i]);
                 if(hop_2 != edges.end())
                 {
@@ -113,8 +112,7 @@ vector<pair <int, int> > getscore(vector<long> query, map<long,long> posmap)
                             sig.push_back(make_pair(cur,posmap[query[i]]));
                         }
                     }
-                } 
-                */            
+                }            
             }
             
         }

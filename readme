@@ -1,0 +1,67 @@
+Pacbio Graph Overlapper
+
+This elementary version consists of 4 programs:
+
+You can install this by following command:
+make
+
+You need to install biopython, networkx and networKit before using this tool.
+
+1. create_ABruijn.py : This creates K-mer graph from reads and stores it in gml file.
+usage: create_ABruijn.py [-h] [-r PACBIO_READS] [-k KMER_SIZE] [-c KMER_COUNT]
+                         [-f FILTER] [-o OUTPUT_FILE]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -r PACBIO_READS, --pacbio_reads PACBIO_READS
+                        input pacbio long reads
+  -k KMER_SIZE, --kmer_size KMER_SIZE
+                        kmer_size
+  -c KMER_COUNT, --kmer_count KMER_COUNT
+                        file containing list of kmers
+  -f FILTER, --filter FILTER
+                        kmer cutoff filter
+  -o OUTPUT_FILE, --output_file OUTPUT_FILE
+                        graph to be output
+
+
+2. create_links.cpp : This create links between k-mers in K-mer graph.
+usage: ./create_links --reads=string --edgefile=string --nodefile=string --kmercount=string --kmersize=int [options] ... 
+options:
+  -r, --reads        pacbio reads (string)
+  -e, --edgefile     edgefile of kmers (string)
+  -n, --nodefile     nodefile (string)
+  -c, --kmercount    kmercount (string)
+  -k, --kmersize     kmersize (int)
+  -?, --help         print this message
+
+3. Louvain_label.cpp : Generates labeling of nodes in K-mer graphs using louvain clustering
+usage: ./louvain --dbg=string --read_to_node=string --label_file=string [options] ... 
+options:
+  -g, --dbg             de bruijn graph of reads (string)
+  -r, --read_to_node    read to node mapping (string)
+  -o, --label_file      outputfle (string)
+  -?, --help            print this message
+
+
+4. avg_neighborhood.cpp: Predicts overlap using neighborhood information and outputs like BLASR m4 format.
+usage: ./avg_neighrhood --reads=string --edgefile=string --nodefile=string --kmersize=int --output=string [options] ... 
+options:
+  -r, --reads       pacbio reads (string)
+  -e, --edgefile    edgefile of kmers (string)
+  -n, --nodefile    nodemapping (string)
+  -k, --kmersize    kmersize (int)
+  -o, --output      output (string)
+  -?, --help        print this message
+
+5. kmer_count.py: Generates kmer counts from reads.
+usage: kmer_count.py [-h] [-r PACBIO_READS] [-k KMER_SIZE] [-o OUTPUT_FILE]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -r PACBIO_READS, --pacbio_reads PACBIO_READS
+                        input pacbio long reads
+  -k KMER_SIZE, --kmer_size KMER_SIZE
+                        kmer_size
+  -o OUTPUT_FILE, --output_file OUTPUT_FILE
+                        output file

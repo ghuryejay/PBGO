@@ -30,6 +30,36 @@ string toLower(string s)
     return ret;
 }
 
+string reverse (string s) 
+{ 
+
+    string result=""; //create a new string and set it to the empty string 
+
+    for (int i=0; i<s.length( ) ; i++) 
+    { //s.length( ) returns the length of a string 
+
+        result = s[ i ] + result ; //take the newest character and add it before what we have already 
+    } 
+
+return result; 
+}
+
+string reverse_complement(string s)
+{
+    s = reverse(s);
+    map<char,char> m;
+    m['a'] = 't';
+    m['c'] = 'g';
+    m['g'] = 'c';
+    m['t'] = 'a';
+    string ret = "";
+    for(int i = 0;i < s.length();i++)
+    {
+        ret += m[s[i]];
+    }
+    return ret;
+}
+
 int main(int argc, char* argv[])
 {
 	cmdline ::parser pr;
@@ -80,6 +110,7 @@ int main(int argc, char* argv[])
             	{
             		long curr_node_id;
             		string currkmer = content.substr(i,k);
+                    string revcurkmer = reverse_complement(currkmer);
             		map<string,long> :: iterator it = nodemap.find(currkmer);
             		if(it == nodemap.end())
             		{
@@ -98,6 +129,18 @@ int main(int argc, char* argv[])
             		}
             		long prevkmerid = nodemap[prevkmer];
             		eofile << prevkmerid <<"\t"<<curr_node_id<<endl;
+                    if(nodemap.find(revcurkmer) == nodemap.end())
+                    {
+                        nodemap[revcurkmer] = readcount;
+                        curr_node_id = readcount;
+                        readcount++;
+                    }
+                    else
+                    {
+                        curr_node_id = nodemap.find(revcurkmer)->second;
+                    }
+                    prevkmerid = nodemap[reverse_complement(prevkmer)];
+                    eofile << prevkmerid << "\t" << curr_node_id<<endl;
 
             	}
                 name.clear();

@@ -31,8 +31,23 @@ string clean_read(string read)
         return read.substr(0,x);
 }
 
+string reverse (string s) 
+{ 
+
+    string result=""; //create a new string and set it to the empty string 
+
+    for (int i=0; i<s.length( ) ; i++) 
+    { //s.length( ) returns the length of a string 
+
+        result = s[ i ] + result ; //take the newest character and add it before what we have already 
+    } 
+
+return result; 
+}
+
 string reverse_complement(string s)
 {
+    s = reverse(s);
     map<char,char> m;
     m['a'] = 't';
     m['c'] = 'g';
